@@ -82,6 +82,7 @@
     $.fn.oembed.defaults = {
         maxWidth: null,
         maxHeight: null,
+        excludeProviders: [],
         embedMethod: 'auto', // "auto", "append", "fill"
         onProviderNotFound: function() {},
         beforeEmbed: function() {},
@@ -309,15 +310,22 @@
 
     $.fn.oembed.getOEmbedProvider = function(url) {
         for (var i = 0; i < $.fn.oembed.providers.length; i++) {
-            for (var j = 0, l = $.fn.oembed.providers[i].urlschemes.length; j < l; j++) {
-                var regExp = new RegExp($.fn.oembed.providers[i].urlschemes[j], "i");
-                if (url.match(regExp) !== null) {
-                    var provider = $.fn.oembed.providers[i];
-                    // require external MD5 function for Gravatar support.
-                    if (provider.name == "gravatar" && !window.MD5) {
-                        return null;
-                    }
+            var provider = $.fn.oembed.providers[i];
 
+            // ignore provider if it is in the ignore list.
+            if ($.inArray(provider.name, settings.excludeProviders) != -1) {
+                continue;
+            }
+
+            // require external MD5 function for Gravatar support.
+            if (provider.name == "gravatar" && !window.MD5) {
+                continue;
+            }
+
+            // else, check if any of the source URLs matches.
+            for (var j = 0, l = provider.urlschemes.length; j < l; j++) {
+                var regExp = new RegExp(provider.urlschemes[j], "i");
+                if (url.match(regExp) !== null) {
                     return provider;
                 }
             }
