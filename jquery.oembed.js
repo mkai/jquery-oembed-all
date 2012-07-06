@@ -168,8 +168,14 @@
                         result = embedProvider.yql.datareturn ? embedProvider.yql.datareturn(data.query.results) : data.query.results.result;
                     }
                     if (result === false) return;
-                    oembedData = $.extend({}, result);
-                    oembedData.code = result;
+                    if (embedProvider.yql.xpath && embedProvider.yql.xpath == 'json') {
+                        oembedData = result;
+                        oembedData.code = oembedData.html;
+                    } else {
+                        oembedData = $.extend({}, result);
+                        oembedData.code = result;                        
+                    }
+
                     success(oembedData, externalUrl, container);
                 },
                 error: settings.onError.call(container, externalUrl, embedProvider)
@@ -329,7 +335,6 @@
         extraSettings = extraSettings || {};
 
         if (extraSettings.useYQL) {
-
             if (extraSettings.useYQL == 'xml') {
                 extraSettings.yql = {
                     xpath: "//oembed/html",
@@ -358,7 +363,6 @@
             this.apiendpoint = null;
         }
 
-
         for (var property in extraSettings) {
             this[property] = extraSettings[property];
         }
@@ -376,7 +380,17 @@
     $.fn.oembed.providers = [
         // video
         new $.fn.oembed.OEmbedProvider("youtube", "video", ["youtube\\.com/watch.+v=[\\w-]+&?", "youtu\\.be/[\\w-]+"], 'http://www.youtube.com/oembed', {
-            useYQL: 'json'
+            yql: {
+                xpath: "json",
+                from: 'json',
+                apiendpoint: 'http://www.youtube.com/oembed',
+                url: function(externalurl) {
+                    return 'http://www.youtube.com/oembed' + '?format=json&url=' + externalurl;
+                },
+                datareturn: function(results) {
+                    return results.json || '';
+                }
+            }
         }),
 
         new $.fn.oembed.OEmbedProvider("wistia", "video", ["wistia.com/m/.+", "wistia.com/embed/.+", "wi.st/m/.+", "wi.st/embed/.+"], 'http://fast.wistia.com/oembed', {
