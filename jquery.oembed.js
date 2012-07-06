@@ -10,14 +10,12 @@
  */
 (function($) {
     $.fn.oembed = function(url, options, embedAction) {
-
         settings = $.extend(true, $.fn.oembed.defaults, options);
         var shortURLList = ["0rz.tw", "1link.in", "1url.com", "2.gp", "2big.at", "2tu.us", "3.ly", "307.to", "4ms.me", "4sq.com", "4url.cc", "6url.com", "7.ly", "a.gg", "a.nf", "aa.cx", "abcurl.net", "ad.vu", "adf.ly", "adjix.com", "afx.cc", "all.fuseurl.com", "alturl.com", "amzn.to", "ar.gy", "arst.ch", "atu.ca", "azc.cc", "b23.ru", "b2l.me", "bacn.me", "bcool.bz", "binged.it", "bit.ly", "bizj.us", "bloat.me", "bravo.ly", "bsa.ly", "budurl.com", "canurl.com", "chilp.it", "chzb.gr", "cl.lk", "cl.ly", "clck.ru", "cli.gs", "cliccami.info", "clickthru.ca", "clop.in", "conta.cc", "cort.as", "cot.ag", "crks.me", "ctvr.us", "cutt.us", "dai.ly", "decenturl.com", "dfl8.me", "digbig.com", "http:\/\/digg\.com\/[^\/]+$", "disq.us", "dld.bz", "dlvr.it", "do.my", "doiop.com", "dopen.us", "easyuri.com", "easyurl.net", "eepurl.com", "eweri.com", "fa.by", "fav.me", "fb.me", "fbshare.me", "ff.im", "fff.to", "fire.to", "firsturl.de", "firsturl.net", "flic.kr", "flq.us", "fly2.ws", "fon.gs", "freak.to", "fuseurl.com", "fuzzy.to", "fwd4.me", "fwib.net", "g.ro.lt", "gizmo.do", "gl.am", "go.9nl.com", "go.ign.com", "go.usa.gov", "goo.gl", "goshrink.com", "gurl.es", "hex.io", "hiderefer.com", "hmm.ph", "href.in", "hsblinks.com", "htxt.it", "huff.to", "hulu.com", "hurl.me", "hurl.ws", "icanhaz.com", "idek.net", "ilix.in", "is.gd", "its.my", "ix.lt", "j.mp", "jijr.com", "kl.am", "klck.me", "korta.nu", "krunchd.com", "l9k.net", "lat.ms", "liip.to", "liltext.com", "linkbee.com", "linkbun.ch", "liurl.cn", "ln-s.net", "ln-s.ru", "lnk.gd", "lnk.ms", "lnkd.in", "lnkurl.com", "lru.jp", "lt.tl", "lurl.no", "macte.ch", "mash.to", "merky.de", "migre.me", "miniurl.com", "minurl.fr", "mke.me", "moby.to", "moourl.com", "mrte.ch", "myloc.me", "myurl.in", "n.pr", "nbc.co", "nblo.gs", "nn.nf", "not.my", "notlong.com", "nsfw.in", "nutshellurl.com", "nxy.in", "nyti.ms", "o-x.fr", "oc1.us", "om.ly", "omf.gd", "omoikane.net", "on.cnn.com", "on.mktw.net", "onforb.es", "orz.se", "ow.ly", "ping.fm", "pli.gs", "pnt.me", "politi.co", "post.ly", "pp.gg", "profile.to", "ptiturl.com", "pub.vitrue.com", "qlnk.net", "qte.me", "qu.tc", "qy.fi", "r.im", "rb6.me", "read.bi", "readthis.ca", "reallytinyurl.com", "redir.ec", "redirects.ca", "redirx.com", "retwt.me", "ri.ms", "rickroll.it", "riz.gd", "rt.nu", "ru.ly", "rubyurl.com", "rurl.org", "rww.tw", "s4c.in", "s7y.us", "safe.mn", "sameurl.com", "sdut.us", "shar.es", "shink.de", "shorl.com", "short.ie", "short.to", "shortlinks.co.uk", "shorturl.com", "shout.to", "show.my", "shrinkify.com", "shrinkr.com", "shrt.fr", "shrt.st", "shrten.com", "shrunkin.com", "simurl.com", "slate.me", "smallr.com", "smsh.me", "smurl.name", "sn.im", "snipr.com", "snipurl.com", "snurl.com", "sp2.ro", "spedr.com", "srnk.net", "srs.li", "starturl.com", "su.pr", "surl.co.uk", "surl.hu", "t.cn", "t.co", "t.lh.com", "ta.gd", "tbd.ly", "tcrn.ch", "tgr.me", "tgr.ph", "tighturl.com", "tiniuri.com", "tiny.cc", "tiny.ly", "tiny.pl", "tinylink.in", "tinyuri.ca", "tinyurl.com", "tk.", "tl.gd", "tmi.me", "tnij.org", "tnw.to", "tny.com", "to.ly", "togoto.us", "totc.us", "toysr.us", "tpm.ly", "tr.im", "tra.kz", "trunc.it", "twhub.com", "twirl.at", "twitclicks.com", "twitterurl.net", "twitterurl.org", "twiturl.de", "twurl.cc", "twurl.nl", "u.mavrev.com", "u.nu", "u76.org", "ub0.cc", "ulu.lu", "updating.me", "ur1.ca", "url.az", "url.co.uk", "url.ie", "url360.me", "url4.eu", "urlborg.com", "urlbrief.com", "urlcover.com", "urlcut.com", "urlenco.de", "urli.nl", "urls.im", "urlshorteningservicefortwitter.com", "urlx.ie", "urlzen.com", "usat.ly", "use.my", "vb.ly", "vgn.am", "vl.am", "vm.lc", "w55.de", "wapo.st", "wapurl.co.uk", "wipi.es", "wp.me", "x.vu", "xr.com", "xrl.in", "xrl.us", "xurl.es", "xurl.jp", "y.ahoo.it", "yatuc.com", "ye.pe", "yep.it", "yfrog.com", "yhoo.it", "yiyd.com", "youtu.be", "yuarel.com", "z0p.de", "zi.ma", "zi.mu", "zipmyurl.com", "zud.me", "zurl.ws", "zz.gd", "zzang.kr", "›.ws", "✩.ws", "✿.ws", "❥.ws", "➔.ws", "➞.ws", "➡.ws", "➨.ws", "➯.ws", "➹.ws", "➽.ws"];
 
         if ($('#jqoembeddata').length === 0) $('<span id="jqoembeddata"></span>').appendTo('body');
 
         return this.each(function() {
-
             var container = $(this),
                 resourceURL = (url && (!url.indexOf('http://') || !url.indexOf('https://'))) ? url : container.attr("href"),
                 provider;
@@ -30,41 +28,7 @@
                 };
             }
 
-            if (resourceURL !== null) {
-                // check if URL is shortened
-                for (var j = 0, l = shortURLList.length; j < l; j++) {
-                    var regExp = new RegExp('://' + shortURLList[j] + '/', "i");
-                    if (resourceURL.match(regExp) !== null) {
-                        // AJAX to http://api.longurl.org/v2/expand?url=http://bit.ly/JATvIs&format=json&callback=hhh
-                        var ajaxopts = $.extend({
-                            url: "http://api.longurl.org/v2/expand",
-                            dataType: 'jsonp',
-                            data: {
-                                url: resourceURL,
-                                format: "json"
-                                //callback: "?"
-                            },
-                            success: function(data) {
-                                //this = $.fn.oembed;
-                                provider = $.fn.oembed.getOEmbedProvider(data['long-url']);
-
-                                if (provider !== null) {
-                                    provider.params = getNormalizedParams(settings[provider.name]) || {};
-                                    provider.maxWidth = settings.maxWidth;
-                                    provider.maxHeight = settings.maxHeight;
-                                    embedCode(container, resourceURL, provider);
-                                } else {
-                                    settings.onProviderNotFound.call(container, resourceURL);
-                                }
-                            }
-                        }, settings.ajaxOptions || {});
-
-                        $.ajax(ajaxopts);
-
-                        return container;
-                    }
-                }
-
+            function getEmbedCode(resourceURL) {
                 provider = $.fn.oembed.getOEmbedProvider(resourceURL);
 
                 if (provider !== null) {
@@ -74,6 +38,37 @@
                     embedCode(container, resourceURL, provider);
                 } else {
                     settings.onProviderNotFound.call(container, resourceURL);
+                }
+            }
+
+            if (resourceURL !== null) {
+                // check if URL is shortened
+                var isShortUrl = false;
+                for (var j = 0, l = shortURLList.length; j < l; j++) {
+                    var regExp = new RegExp('://' + shortURLList[j] + '/', "i");
+                    if (resourceURL.match(regExp) !== null) {
+                        isShortUrl = true;
+                        break;
+                    }
+                }
+
+                // if URL is shortened, expand it via Ajax to http://api.longurl.org/v2/expand?url=http://bit.ly/JATvIs&format=json&callback=hhh
+                if (isShortUrl) {
+                    $.ajax($.extend({
+                        url: "http://api.longurl.org/v2/expand",
+                        dataType: 'jsonp',
+                        data: {
+                            url: resourceURL,
+                            format: "json"
+                        },
+                        success: function(data) {
+                            getEmbedCode(data['long-url']);
+                        }
+                    }, settings.ajaxOptions || {}));
+
+                    return container;
+                } else {
+                    getEmbedCode(resourceURL);
                 }
             }
 
@@ -142,12 +137,13 @@
     }
 
     function embedCode(container, externalUrl, embedProvider) {
-        /* if ($('#jqoembeddata').data(externalUrl) != undefined && embedProvider.embedtag.tag != 'iframe') {
-            var oembedData = {
+        var oembedData;
+        if ($('#jqoembeddata').data(externalUrl) !== undefined && embedProvider.embedtag.tag != 'iframe') {
+            oembedData = {
                 code: $('#jqoembeddata').data(externalUrl)
             };
             success(oembedData, externalUrl, container);
-        } else */if (embedProvider.yql) {
+        } else if (embedProvider.yql) {
             var from = embedProvider.yql.from || 'htmlstring';
             var query = 'SELECT * FROM ' + from + ' WHERE url="' + (embedProvider.yql.url ? embedProvider.yql.url(externalUrl) : externalUrl) + '"' + " and " + (/html/.test(from) ? 'xpath' : 'itemPath') + "='" + (embedProvider.yql.xpath || '/') + "'";
             if (from == 'html') query += " and compat='html5'";
@@ -174,7 +170,7 @@
                         result = embedProvider.yql.datareturn ? embedProvider.yql.datareturn(data.query.results) : data.query.results.result;
                     }
                     if (result === false) return;
-                    var oembedData = $.extend({}, result);
+                    oembedData = $.extend({}, result);
                     oembedData.code = result;
                     success(oembedData, externalUrl, container);
                 },
@@ -198,15 +194,14 @@
                 if (tag == 'embed') code.attr('type', embedProvider.embedtag.type || "application/x-shockwave-flash").attr('flashvars', externalUrl.replace(embedProvider.templateRegex, flashvars));
                 if (tag == 'iframe') code.attr('scrolling', embedProvider.embedtag.scrolling || "no").attr('frameborder', embedProvider.embedtag.frameborder || "0");
 
-
-                var oembedData = {
+                oembedData = {
                     code: code
                 };
                 success(oembedData, externalUrl, container);
             } else if (embedProvider.apiendpoint) {
                 //Add APIkey if true
                 if (embedProvider.apikey) embedProvider.apiendpoint = embedProvider.apiendpoint.replace('_APIKEY_', settings.apikeys[embedProvider.name]);
-                ajaxopts = $.extend({
+                $.ajax($.extend({
                     url: externalUrl.replace(embedProvider.templateRegex, embedProvider.apiendpoint),
                     dataType: 'jsonp',
                     success: function(data) {
@@ -215,43 +210,39 @@
                         success(oembedData, externalUrl, container);
                     },
                     error: settings.onError.call(container, externalUrl, embedProvider)
-                }, settings.ajaxOptions || {});
-
-                $.ajax(ajaxopts);
+                }, settings.ajaxOptions || {}));
             } else {
-                var oembedData = {
+                oembedData = {
                     code: externalUrl.replace(embedProvider.templateRegex, embedProvider.template)
                 };
                 success(oembedData, externalUrl, container);
             }
         } else {
 
-            var requestUrl = getRequestUrl(embedProvider, externalUrl),
-                ajaxopts = $.extend({
-                    url: requestUrl,
-                    dataType: embedProvider.dataType || 'jsonp',
-                    success: function(data) {
-                        var oembedData = $.extend({}, data);
-                        switch (oembedData.type) {
-                        case "file":
-                            //Deviant Art has this
-                        case "photo":
-                            oembedData.code = $.fn.oembed.getPhotoCode(externalUrl, oembedData);
-                            break;
-                        case "video":
-                        case "rich":
-                            oembedData.code = $.fn.oembed.getRichCode(externalUrl, oembedData);
-                            break;
-                        default:
-                            oembedData.code = $.fn.oembed.getGenericCode(externalUrl, oembedData);
-                            break;
-                        }
-                        success(oembedData, externalUrl, container);
-                    },
-                    error: settings.onError.call(container, externalUrl, embedProvider)
-                }, settings.ajaxOptions || {});
-
-            $.ajax(ajaxopts);
+            var requestUrl = getRequestUrl(embedProvider, externalUrl);
+            $.ajax($.extend({
+                url: requestUrl,
+                dataType: embedProvider.dataType || 'jsonp',
+                success: function(data) {
+                    var oembedData = $.extend({}, data);
+                    switch (oembedData.type) {
+                    case "file":
+                        //Deviant Art has this
+                    case "photo":
+                        oembedData.code = $.fn.oembed.getPhotoCode(externalUrl, oembedData);
+                        break;
+                    case "video":
+                    case "rich":
+                        oembedData.code = $.fn.oembed.getRichCode(externalUrl, oembedData);
+                        break;
+                    default:
+                        oembedData.code = $.fn.oembed.getGenericCode(externalUrl, oembedData);
+                        break;
+                    }
+                    success(oembedData, externalUrl, container);
+                },
+                error: settings.onError.call(container, externalUrl, embedProvider)
+            }, settings.ajaxOptions || {}));
         }
     }
 
@@ -317,7 +308,15 @@
         for (var i = 0; i < $.fn.oembed.providers.length; i++) {
             for (var j = 0, l = $.fn.oembed.providers[i].urlschemes.length; j < l; j++) {
                 var regExp = new RegExp($.fn.oembed.providers[i].urlschemes[j], "i");
-                if (url.match(regExp) !== null) return $.fn.oembed.providers[i];
+                if (url.match(regExp) !== null) {
+                    var provider = $.fn.oembed.providers[i];
+                    // require external MD5 function for Gravatar support.
+                    if (provider.name == "gravatar" && !window.MD5) {
+                        return null;
+                    }
+
+                    return provider;
+                }
             }
         }
         return null;
@@ -348,14 +347,14 @@
                 };
             } else {
                 extraSettings.yql = {
-                    xpath: "json", // was: json.html
+                    xpath: "json.html",
                     from: 'json',
                     apiendpoint: this.apiendpoint,
                     url: function(externalurl) {
                         return this.apiendpoint + '?format=json&url=' + externalurl;
                     },
                     datareturn: function(results) {
-                        return results.json || ''; // was: return results.html || ''
+                        return results.html || '';
                     }
                 };
             }
@@ -648,14 +647,14 @@
             }
         }),
 
-        new $.fn.oembed.OEmbedProvider("gravtar", "photo", ["mailto:.+"], null, {
+        new $.fn.oembed.OEmbedProvider("gravatar", "photo", ["mailto:.+"], null, {
             templateRegex: /mailto:([^\/]+).*/,
             template: function(wm, email) {
-                return '<img src="http://gravatar.com/avatar/' + email.md5() + '.jpg" alt="on Gravtar" class="jqoaImg">';
+                return '<img src="http://gravatar.com/avatar/' + window.MD5(email) + '.jpg" alt="on Gravatar" class="jqoaImg">';
             }
         }),
 
-        //Rich
+        // rich
         new $.fn.oembed.OEmbedProvider("twitter", "rich", ["twitter.com/.+"], "https://api.twitter.com/1/statuses/oembed.json"), new $.fn.oembed.OEmbedProvider("urtak", "rich", ["urtak.com/(u|clr)   /.+"], "http://oembed.urtak.com/1/oembed"), new $.fn.oembed.OEmbedProvider("cacoo", "rich", ["cacoo.com/.+"], "http://cacoo.com/oembed.json"), new $.fn.oembed.OEmbedProvider("dailymile", "rich", ["dailymile.com/people/.*/entries/.*"], "http://api.dailymile.com/oembed"), new $.fn.oembed.OEmbedProvider("dipity", "rich", ["dipity.com/timeline/.+"], 'http://www.dipity.com/oembed/timeline/', {
             useYQL: 'json'
         }),
@@ -951,137 +950,3 @@
         })
     ];
 })(jQuery);
-
-//This is needed for gravatar :(
-String.prototype.md5 = function() {
-    var a = function(a, b) {
-            var c = (a & 65535) + (b & 65535);
-            var d = (a >> 16) + (b >> 16) + (c >> 16);
-            return d << 16 | c & 65535
-        };
-    var b = function(a, b) {
-            return a << b | a >>> 32 - b
-        };
-    var c = function(c, d, e, f, g, h) {
-            return a(b(a(a(d, c), a(f, h)), g), e)
-        };
-    var d = function(a, b, d, e, f, g, h) {
-            return c(b & d | ~b & e, a, b, f, g, h)
-        };
-    var e = function(a, b, d, e, f, g, h) {
-            return c(b & e | d & ~e, a, b, f, g, h)
-        };
-    var f = function(a, b, d, e, f, g, h) {
-            return c(b ^ d ^ e, a, b, f, g, h)
-        };
-    var g = function(a, b, d, e, f, g, h) {
-            return c(d ^ (b | ~e), a, b, f, g, h)
-        };
-    var h = function(b) {
-            var c, h, i, j, k, l = b.length;
-            var m = 1732584193;
-            var n = -271733879;
-            var o = -1732584194;
-            var p = 271733878;
-            for (k = 0; k < l; k += 16) {
-                c = m;
-                h = n;
-                i = o;
-                j = p;
-                m = d(m, n, o, p, b[k + 0], 7, -680876936);
-                p = d(p, m, n, o, b[k + 1], 12, -389564586);
-                o = d(o, p, m, n, b[k + 2], 17, 606105819);
-                n = d(n, o, p, m, b[k + 3], 22, -1044525330);
-                m = d(m, n, o, p, b[k + 4], 7, -176418897);
-                p = d(p, m, n, o, b[k + 5], 12, 1200080426);
-                o = d(o, p, m, n, b[k + 6], 17, -1473231341);
-                n = d(n, o, p, m, b[k + 7], 22, -45705983);
-                m = d(m, n, o, p, b[k + 8], 7, 1770035416);
-                p = d(p, m, n, o, b[k + 9], 12, -1958414417);
-                o = d(o, p, m, n, b[k + 10], 17, -42063);
-                n = d(n, o, p, m, b[k + 11], 22, -1990404162);
-                m = d(m, n, o, p, b[k + 12], 7, 1804603682);
-                p = d(p, m, n, o, b[k + 13], 12, -40341101);
-                o = d(o, p, m, n, b[k + 14], 17, -1502002290);
-                n = d(n, o, p, m, b[k + 15], 22, 1236535329);
-                m = e(m, n, o, p, b[k + 1], 5, -165796510);
-                p = e(p, m, n, o, b[k + 6], 9, -1069501632);
-                o = e(o, p, m, n, b[k + 11], 14, 643717713);
-                n = e(n, o, p, m, b[k + 0], 20, -373897302);
-                m = e(m, n, o, p, b[k + 5], 5, -701558691);
-                p = e(p, m, n, o, b[k + 10], 9, 38016083);
-                o = e(o, p, m, n, b[k + 15], 14, -660478335);
-                n = e(n, o, p, m, b[k + 4], 20, -405537848);
-                m = e(m, n, o, p, b[k + 9], 5, 568446438);
-                p = e(p, m, n, o, b[k + 14], 9, -1019803690);
-                o = e(o, p, m, n, b[k + 3], 14, -187363961);
-                n = e(n, o, p, m, b[k + 8], 20, 1163531501);
-                m = e(m, n, o, p, b[k + 13], 5, -1444681467);
-                p = e(p, m, n, o, b[k + 2], 9, -51403784);
-                o = e(o, p, m, n, b[k + 7], 14, 1735328473);
-                n = e(n, o, p, m, b[k + 12], 20, -1926607734);
-                m = f(m, n, o, p, b[k + 5], 4, -378558);
-                p = f(p, m, n, o, b[k + 8], 11, -2022574463);
-                o = f(o, p, m, n, b[k + 11], 16, 1839030562);
-                n = f(n, o, p, m, b[k + 14], 23, -35309556);
-                m = f(m, n, o, p, b[k + 1], 4, -1530992060);
-                p = f(p, m, n, o, b[k + 4], 11, 1272893353);
-                o = f(o, p, m, n, b[k + 7], 16, -155497632);
-                n = f(n, o, p, m, b[k + 10], 23, -1094730640);
-                m = f(m, n, o, p, b[k + 13], 4, 681279174);
-                p = f(p, m, n, o, b[k + 0], 11, -358537222);
-                o = f(o, p, m, n, b[k + 3], 16, -722521979);
-                n = f(n, o, p, m, b[k + 6], 23, 76029189);
-                m = f(m, n, o, p, b[k + 9], 4, -640364487);
-                p = f(p, m, n, o, b[k + 12], 11, -421815835);
-                o = f(o, p, m, n, b[k + 15], 16, 530742520);
-                n = f(n, o, p, m, b[k + 2], 23, -995338651);
-                m = g(m, n, o, p, b[k + 0], 6, -198630844);
-                p = g(p, m, n, o, b[k + 7], 10, 1126891415);
-                o = g(o, p, m, n, b[k + 14], 15, -1416354905);
-                n = g(n, o, p, m, b[k + 5], 21, -57434055);
-                m = g(m, n, o, p, b[k + 12], 6, 1700485571);
-                p = g(p, m, n, o, b[k + 3], 10, -1894986606);
-                o = g(o, p, m, n, b[k + 10], 15, -1051523);
-                n = g(n, o, p, m, b[k + 1], 21, -2054922799);
-                m = g(m, n, o, p, b[k + 8], 6, 1873313359);
-                p = g(p, m, n, o, b[k + 15], 10, -30611744);
-                o = g(o, p, m, n, b[k + 6], 15, -1560198380);
-                n = g(n, o, p, m, b[k + 13], 21, 1309151649);
-                m = g(m, n, o, p, b[k + 4], 6, -145523070);
-                p = g(p, m, n, o, b[k + 11], 10, -1120210379);
-                o = g(o, p, m, n, b[k + 2], 15, 718787259);
-                n = g(n, o, p, m, b[k + 9], 21, -343485551);
-                m = a(m, c);
-                n = a(n, h);
-                o = a(o, i);
-                p = a(p, j)
-            }
-            return [m, n, o, p]
-        };
-    var i = function(a) {
-            var b = "0123456789abcdef",
-                c = "",
-                d, e = a.length * 4;
-            for (d = 0; d < e; d++) {
-                c += b.charAt(a[d >> 2] >> d % 4 * 8 + 4 & 15) + b.charAt(a[d >> 2] >> d % 4 * 8 & 15)
-            }
-            return c
-        };
-    var j = function(a) {
-            var b = (a.length + 8 >> 6) + 1;
-            var c = [],
-                d, e = b * 16,
-                f, g = a.length;
-            for (d = 0; d < e; d++) {
-                c.push(0)
-            }
-            for (f = 0; f < g; f++) {
-                c[f >> 2] |= (a.charCodeAt(f) & 255) << f % 4 * 8
-            }
-            c[f >> 2] |= 128 << f % 4 * 8;
-            c[b * 16 - 2] = g * 8;
-            return c
-        };
-    return i(h(j(this)))
-}
