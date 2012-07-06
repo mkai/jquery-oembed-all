@@ -388,7 +388,7 @@
                     return 'http://www.youtube.com/oembed' + '?format=json&url=' + externalurl;
                 },
                 datareturn: function(results) {
-                    return results.json || '';
+                    return (results && results.json) || '';
                 }
             }
         }),
