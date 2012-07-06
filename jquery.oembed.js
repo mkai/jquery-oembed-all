@@ -15,6 +15,19 @@
 
         if ($('#jqoembeddata').length === 0) $('<span id="jqoembeddata"></span>').appendTo('body');
 
+        function getEmbedCode(resourceURL, container) {
+            provider = $.fn.oembed.getOEmbedProvider(resourceURL);
+
+            if (provider !== null) {
+                provider.params = getNormalizedParams(settings[provider.name]) || {};
+                provider.maxWidth = settings.maxWidth;
+                provider.maxHeight = settings.maxHeight;
+                embedCode(container, resourceURL, provider);
+            } else {
+                settings.onProviderNotFound.call(container, resourceURL);
+            }
+        }
+
         return this.each(function() {
             var container = $(this),
                 resourceURL = (url && (!url.indexOf('http://') || !url.indexOf('https://'))) ? url : container.attr("href"),
@@ -26,19 +39,6 @@
                 settings.onEmbed = function(oembedData) {
                     $.fn.oembed.insertCode(this, settings.embedMethod, oembedData);
                 };
-            }
-
-            function getEmbedCode(resourceURL) {
-                provider = $.fn.oembed.getOEmbedProvider(resourceURL);
-
-                if (provider !== null) {
-                    provider.params = getNormalizedParams(settings[provider.name]) || {};
-                    provider.maxWidth = settings.maxWidth;
-                    provider.maxHeight = settings.maxHeight;
-                    embedCode(container, resourceURL, provider);
-                } else {
-                    settings.onProviderNotFound.call(container, resourceURL);
-                }
             }
 
             if (resourceURL !== null) {
@@ -62,20 +62,18 @@
                             format: "json"
                         },
                         success: function(data) {
-                            getEmbedCode(data['long-url']);
+                            getEmbedCode(data['long-url'], container);
                         }
                     }, settings.ajaxOptions || {}));
 
                     return container;
                 } else {
-                    getEmbedCode(resourceURL);
+                    getEmbedCode(resourceURL, container);
                 }
             }
 
             return container;
         });
-
-
     };
 
     var settings;
