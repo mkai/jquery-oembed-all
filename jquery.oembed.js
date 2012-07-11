@@ -129,7 +129,7 @@
     }
 
     function success(oembedData, externalUrl, container) {
-        $('#jqoembeddata').data(externalUrl, oembedData.code);
+        $('#jqoembeddata').data(externalUrl, oembedData);
         settings.beforeEmbed.call(container, oembedData);
         settings.onEmbed.call(container, oembedData);
         settings.afterEmbed.call(container, oembedData);
@@ -138,9 +138,7 @@
     function embedCode(container, externalUrl, embedProvider) {
         var oembedData;
         if ($('#jqoembeddata').data(externalUrl) !== undefined && embedProvider.embedtag.tag != 'iframe') {
-            oembedData = {
-                code: $('#jqoembeddata').data(externalUrl)
-            };
+            oembedData = $('#jqoembeddata').data(externalUrl);
             success(oembedData, externalUrl, container);
         } else if (embedProvider.yql) {
             var from = embedProvider.yql.from || 'htmlstring';
