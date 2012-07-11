@@ -174,7 +174,7 @@
                         oembedData.code = oembedData.html;
                     } else {
                         oembedData = $.extend({}, result);
-                        oembedData.code = result;                        
+                        oembedData.code = result;
                     }
 
                     success(oembedData, externalUrl, container);
@@ -990,12 +990,12 @@
                 xpath: "//meta",
                 from: 'html',
                 datareturn: function(results) {
-                    if (!results['og:title'] && results['title'] && results['description']) results['og:title'] = results['title'];
-                    if (!results['og:title'] && !results['title']) return false;
+                    if (!results['og:title'] && results.title && results.description) results['og:title'] = results.title;
+                    if (!results['og:title'] && !results.title) return false;
                     var code = $('<p/>');
                     if (results['og:title']) code.append('<b>' + results['og:title'] + '</b><br/>');
                     if (results['og:description']) code.append(results['og:description'] + '<br/>');
-                    else if (results['description']) code.append(results['description'] + '<br/>');
+                    else if (results.description) code.append(results.description + '<br/>');
                     if (results['og:video']) {
                         var embed = $('<embed src="' + results['og:video'] + '"/>');
                         embed.attr('type', results['og:video:type'] || "application/x-shockwave-flash").css('max-height', settings.maxHeight || 'auto').css('max-width', settings.maxWidth || 'auto');
