@@ -543,7 +543,7 @@
             useYQL: 'json'
         }),
 
-        new $.fn.oembed.OEmbedProvider("vimeo", "video", ["http:\/\/(www\.)?vimeo\.com\/.*", "http:\/\/(www\.)?vimeo\.com\/groups\/.*\/videos\/.*"], "http://vimeo.com/api/oembed.json"),
+        new $.fn.oembed.OEmbedProvider("vimeo", "video", ["http:\/\/www\.vimeo\.com\/groups\/.*\/videos\/.*", "http:\/\/www\.vimeo\.com\/.*", "http:\/\/vimeo\.com\/groups\/.*\/videos\/.*", "http:\/\/vimeo\.com\/.*"], "http://vimeo.com/api/oembed.json"),
 
         new $.fn.oembed.OEmbedProvider("dailymotion", "video", ["dailymotion\\.com/.+"], 'http://www.dailymotion.com/services/oembed'),
 
