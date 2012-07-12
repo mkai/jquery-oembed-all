@@ -177,7 +177,9 @@
 
                     success(oembedData, externalUrl, container);
                 },
-                error: settings.onError.call(container, externalUrl, embedProvider)
+                error: function(xhr) {
+                    settings.onError.call(container, externalUrl, embedProvider, xhr);
+                }
             }, settings.ajaxOptions || {});
 
             $.ajax(ajaxopts);
@@ -212,7 +214,9 @@
                         oembedData.code = embedProvider.templateData(data);
                         success(oembedData, externalUrl, container);
                     },
-                    error: settings.onError.call(container, externalUrl, embedProvider)
+                    error: function(xhr) {
+                        settings.onError.call(container, externalUrl, embedProvider, xhr);
+                    }
                 }, settings.ajaxOptions || {}));
             } else {
                 oembedData = {
@@ -243,7 +247,9 @@
                     }
                     success(oembedData, externalUrl, container);
                 },
-                error: settings.onError.call(container, externalUrl, embedProvider)
+                error: function(xhr) {
+                    settings.onError.call(container, externalUrl, embedProvider, xhr);
+                }
             }, settings.ajaxOptions || {}));
         }
     }
