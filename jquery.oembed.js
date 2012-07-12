@@ -16,7 +16,7 @@
         if ($('#jqoembeddata').length === 0) $('<span id="jqoembeddata"></span>').appendTo('body');
 
         function getEmbedCode(resourceURL, container) {
-            provider = $.fn.oembed.getOEmbedProvider(resourceURL);
+            provider = $.fn.oembed.getOEmbedProvider(resourceURL, settings);
 
             if (provider !== null) {
                 provider.params = getNormalizedParams(settings[provider.name]) || {};
@@ -306,7 +306,7 @@
         return code;
     };
 
-    $.fn.oembed.getOEmbedProvider = function(url) {
+    $.fn.oembed.getOEmbedProvider = function(url, settings) {
         for (var i = 0; i < $.fn.oembed.providers.length; i++) {
             var provider = $.fn.oembed.providers[i];
 
